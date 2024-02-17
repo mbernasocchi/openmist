@@ -14,7 +14,7 @@ viewer.scene.primitives.add(buildingTileset);
 viewer.dataSources
           .add(
             Cesium.GpxDataSource.load(
-              "/resources/test/20240216.gpx",
+              "./resources/test/20240216.gpx",
                 //"https://api.sports-tracker.com/apiserver/v1/workouts/export/APCenfIheTmrSsiVq3HJ9YgaePUYn8IXCpdauq1XVuCY7ruoUQbTCupuE2ObMiUKFQ==?brand=SUUNTOAPP",
               {
                 clampToGround: false,
