@@ -1,0 +1,60 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: #000;
+    color: #eee;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .fullSize {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+  
+  #loadingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.9;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 10000;
+    background-color: black;
+  }
+  
+  #loadingOverlay h1 {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    margin-top: -0.5em;
+  }
+  
+  .cesium-loading #loadingOverlay {
+    display: block;
+  }
+  
+  .cesium-loading #toolbar {
+    display: none;
+  }
+
+
+#hidden{
+    display: none;
+}
+#cesiumContainer {
+    overflow: hidden;
+    height: 50% !important;
+    width: 100%;
+}
