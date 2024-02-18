@@ -9,39 +9,33 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 
 viewer.extend(Cesium.viewerDragDropMixin, {
 	clearOnDrop: true,
-	flyToOnDrop: true
+	flyToOnDrop: true,
+  clampToGround: true,
 });
 
 const clock = viewer.clock;
 clock.multiplier = 120;
 
 
+// adding eventListener to html-input-Element with type="file"
+document.getElementById('gpxfile').addEventListener('change', loadFile, false);
 
-// Add Cesium OSM Buildings, a global 3D buildings layer.
-// const buildingTileset = await Cesium.createOsmBuildingsAsync();
-// viewer.scene.primitives.add(buildingTileset);
-
-
-viewer.dataSources.dataSourceAdded.addEventListener(function(source) {
-  console.log("Data source added");
-  console.log(viewer.dataSources);
-  viewer.clockViewModel.shouldAnimate = true;
-  
-});
-
-
-
-/* viewer.dataSources
-  .add(
+// function for loading local gpx
+function loadFile (event) {
+  viewer.dataSources.removeAll();
+  let tmppath = URL.createObjectURL(event.target.files[0]);
+  viewer.dataSources.add(
     Cesium.GpxDataSource.load(
-      ".dd/resources/test/20240216.gpx",
-      //"https://api.sports-tracker.com/apiserver/v1/workouts/export/APCenfIheTmrSsiVq3HJ9YgaePUYn8IXCpdauq1XVuCY7ruoUQbTCupuE2ObMiUKFQ==?brand=SUUNTOAPP",
+      tmppath,
       {
         clampToGround: false,
       }
     )
   )
-  .then(function (dataSource) {
-    viewer.flyTo(dataSource.entities);
-  });
- */
+}
+
+// fly to the first added dataSource
+viewer.dataSources.dataSourceAdded.addEventListener(function(source) {
+  viewer.clockViewModel.shouldAnimate = true;
+  viewer.flyTo(viewer.dataSources.get(0));  
+});
