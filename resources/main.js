@@ -6,37 +6,31 @@ Cesium.Ion.defaultAccessToken =
 const viewer = new Cesium.Viewer("cesiumContainer", {
   terrain: Cesium.Terrain.fromWorldTerrain(),
 });
-
 viewer.clock.multiplier = 120;
 
 // add DragDropMixin to the viewer
 viewer.extend(Cesium.viewerDragDropMixin, {
-	clearOnDrop: true,
-	flyToOnDrop: true,
+  clearOnDrop: true,
+  flyToOnDrop: true,
   clampToGround: true,
 });
 
-
 // add eventListener to html-input-Element with type="file"
-document.getElementById('gpxfile').addEventListener('change', loadFile, false);
+document.getElementById("gpxfile").addEventListener("change", loadFile, false);
 
 // fly to the added dataSource
-viewer.dataSources.dataSourceAdded.addEventListener(function(source) {
+viewer.dataSources.dataSourceAdded.addEventListener(function (source) {
   viewer.clockViewModel.shouldAnimate = true;
-  viewer.flyTo(viewer.dataSources.get(0));  
+  viewer.flyTo(viewer.dataSources.get(0));
 });
 
 // function for loading local gpx
-function loadFile (event) {
+function loadFile(event) {
   viewer.dataSources.removeAll();
   let tmppath = URL.createObjectURL(event.target.files[0]);
   viewer.dataSources.add(
-    Cesium.GpxDataSource.load(
-      tmppath,
-      {
-        clampToGround: false,
-      }
-    )
-  )
+    Cesium.GpxDataSource.load(tmppath, {
+      clampToGround: false,
+    })
+  );
 }
-
