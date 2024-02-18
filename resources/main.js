@@ -9,6 +9,7 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 window.viewer = viewer;
 viewer.clock.multiplier = 120;
 
+var dataSource;
 
 // init UI
 // Move HTML buttons to Cesium toolbar
@@ -31,10 +32,12 @@ viewer.extend(Cesium.viewerDragDropMixin, {
 // add eventListener to html-input-Element with type="file"
 document.getElementById("fileupload").addEventListener("change", loadFile, false);
 
-// fly to the added dataSource
+// use to the added dataSource
 viewer.dataSources.dataSourceAdded.addEventListener(function (source) {
   viewer.clockViewModel.shouldAnimate = true;
-  viewer.flyTo(viewer.dataSources.get(0));
+  dataSource = viewer.dataSources.get(0);
+  viewer.flyTo(dataSource);
+  colorize();
 });
 
 // function for loading local gpx
@@ -48,5 +51,18 @@ function loadFile(event) {
   );
 }
 
+// add colors to the track. TODO colorize by vertical speed
+function colorize() {
+  dataSource.entities.values.forEach(function (entity) {
+    console.log(entity.name);
+  
+    entity.polyline.material = Cesium.Color.fromRandom({
+      alpha: 1,
+    });
+  });
+}
 
+
+
+// remove loading screen
 document.body.classList.remove("cesium-loading");
