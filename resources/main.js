@@ -7,18 +7,24 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
   terrain: Cesium.Terrain.fromWorldTerrain(),
 });
 
+viewer.clock.multiplier = 120;
+
+// add DragDropMixin to the viewer
 viewer.extend(Cesium.viewerDragDropMixin, {
 	clearOnDrop: true,
 	flyToOnDrop: true,
   clampToGround: true,
 });
 
-const clock = viewer.clock;
-clock.multiplier = 120;
 
-
-// adding eventListener to html-input-Element with type="file"
+// add eventListener to html-input-Element with type="file"
 document.getElementById('gpxfile').addEventListener('change', loadFile, false);
+
+// fly to the added dataSource
+viewer.dataSources.dataSourceAdded.addEventListener(function(source) {
+  viewer.clockViewModel.shouldAnimate = true;
+  viewer.flyTo(viewer.dataSources.get(0));  
+});
 
 // function for loading local gpx
 function loadFile (event) {
@@ -34,8 +40,3 @@ function loadFile (event) {
   )
 }
 
-// fly to the first added dataSource
-viewer.dataSources.dataSourceAdded.addEventListener(function(source) {
-  viewer.clockViewModel.shouldAnimate = true;
-  viewer.flyTo(viewer.dataSources.get(0));  
-});
