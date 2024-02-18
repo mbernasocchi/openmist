@@ -55,6 +55,6 @@ body {
 }
 #cesiumContainer {
     overflow: hidden;
-    height: 50% !important;
+    height: 100%;
     width: 100%;
 }
