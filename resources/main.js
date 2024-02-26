@@ -48,8 +48,6 @@ function loadData(gpx) {
   );
 }
 
-// "https://github.com/mbernasocchi/openmist/blob/398544228b8f700d0781cabae029a00a43a92b4f/resources/test/20240216.gpx"
-
 // check for gpx data link in url params and open download dialog
 const searchParams = new URL(window.location.href).searchParams;
 const gpxLink = searchParams.get("gpx")
