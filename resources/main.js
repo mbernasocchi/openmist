@@ -82,4 +82,3 @@ function colorize() {
 
 // remove loading screen
 document.body.classList.remove("cesium-loading");
-
