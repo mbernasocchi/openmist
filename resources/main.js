@@ -52,7 +52,7 @@ function loadData(gpx) {
 const searchParams = new URL(window.location.href).searchParams;
 const gpxLink = searchParams.get("gpx")
 if (gpxLink) {
-  // loadData(gpxLink) NOTE to load data immediately a server with necessary CORS header required or a backend
+  // loadData(gpxLink) NOTE to load data immediately a server or proxy that adds the necessary CORS headers required or a backend
   const linkEl = document.getElementById("gpxLink")
   linkEl.href = gpxLink;
   linkEl.textContent = gpxLink;
