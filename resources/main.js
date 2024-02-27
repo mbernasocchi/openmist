@@ -40,15 +40,31 @@ viewer.dataSources.dataSourceAdded.addEventListener(function (source) {
   colorize();
 });
 
+function loadData(gpx) {
+  viewer.dataSources.add(
+    Cesium.GpxDataSource.load(gpx, {
+      clampToGround: false,
+    })
+  );
+}
+
+// check for gpx data link in url params and open download dialog
+const searchParams = new URL(window.location.href).searchParams;
+const gpxLink = searchParams.get("gpx")
+if (gpxLink) {
+  // loadData(gpxLink) NOTE to load data immediately a server or proxy that adds the necessary CORS headers required or a backend
+  const linkEl = document.getElementById("gpxLink")
+  linkEl.href = gpxLink;
+  linkEl.textContent = gpxLink;
+  document.querySelector("dialog").showModal();
+}
+
+
 // function for loading local gpx
 function loadFile(event) {
   viewer.dataSources.removeAll();
   let tmppath = URL.createObjectURL(event.target.files[0]);
-  viewer.dataSources.add(
-    Cesium.GpxDataSource.load(tmppath, {
-      clampToGround: false,
-    })
-  );
+  loadData(tmppath)
 }
 
 // add colors to the track. TODO colorize by vertical speed
