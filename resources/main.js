@@ -54,9 +54,13 @@ const gpxLink = searchParams.get("gpx")
 if (gpxLink) {
   // loadData(gpxLink) NOTE to load data immediately a server or proxy that adds the necessary CORS headers required or a backend
   const linkEl = document.getElementById("gpxLink")
+  const dialog = document.querySelector("dialog")
   linkEl.href = gpxLink;
   linkEl.textContent = gpxLink;
-  document.querySelector("dialog").showModal();
+  linkEl.addEventListener('click', function(event) {
+    dialog.close()
+  });
+  dialog.showModal();
 }
 
 
